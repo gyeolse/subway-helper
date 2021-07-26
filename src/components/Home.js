@@ -36,6 +36,18 @@ const Home = () => {
   const [line, setline] = useState(0);
   const [isLineChecked, setisLineChecked] = useState(false);
 
+  const checkTrainStatus = (trainStatus) => {
+    console.log(trainStatus);
+
+    if (trainStatus == "0" || trainStatus == 0) {
+      return "진입";
+    } else if (trainStatus == "1" || trainStatus == 1) {
+      return "도착";
+    } else {
+      return "출발";
+    }
+  };
+
   const url =
     "http://swopenapi.seoul.go.kr/api/subway/" +
     CONFIG_KEY +
@@ -134,7 +146,7 @@ const Home = () => {
                   }
                   statnNm={trainData.statnNm}
                   trainNo={trainData.trainNo}
-                  trainSttus={trainData.trainSttus}
+                  trainSttus={checkTrainStatus(trainData.trainSttus)}
                   statnTnm={trainData.statnTnm}
                   updnLine={trainData.updnLine}
                   directAt={trainData.directAt}
