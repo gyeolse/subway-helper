@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { Button, TextField } from "@material-ui/core";
-
+import { isBrowser, isMobile } from "react-device-detect";
 function Detail({ location }) {
   const [message, setmessage] = useState("");
   const [temperature, settemperature] = useState("");
@@ -59,7 +59,14 @@ function Detail({ location }) {
   };
 
   const sendSMSListener = () => {
-    alert("고객센터로 SMS 전송합니다.");
+    //Mobile 화면만 지원하도록 설정
+    if (isMobile) {
+      alert("고객센터로 SMS 전송합니다.");
+    } else if (isBrowser) {
+      alert("현재 PC 화면은 지원하지 않습니다.");
+    } else {
+      alert("기타 브라우저는 지원하지 않습니다.");
+    }
   };
 
   return (

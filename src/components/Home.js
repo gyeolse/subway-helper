@@ -4,6 +4,8 @@ import axios from "axios";
 import { CONFIG_KEY } from "../config/Key";
 import Train from "./Train";
 import Button from "@material-ui/core/Button";
+import { useInView } from "react-intersection-observer";
+
 import {
   FormControl,
   Select,
@@ -35,9 +37,29 @@ const Home = () => {
   const [result, setresult] = useState([]);
   const [line, setline] = useState(0);
   const [isLineChecked, setisLineChecked] = useState(false);
+  const [startNum, setstartNum] = useState(0);
+  const [endNum, setendNum] = useState(10);
+
+  const _infiniteScroll = () => {
+    let scrollHeight = Math.max(
+      document.documentElement.scrollHeight,
+      document.body.scrollHeight
+    );
+    let scrollTop = Math.max(
+      document.documentElement.scrollTop,
+      document.body.scrollTop
+    );
+
+    let clientHeight = document.documentElement.clientHeight;
+
+    if (scrollTop + clientHeight === scrollHeight) {
+      setstartNum(startNum + 10);
+      setendNum(endNum + 10);
+    }
+  };
 
   const checkTrainStatus = (trainStatus) => {
-    console.log(trainStatus);
+    // console.log(trainStatus);
 
     if (trainStatus == "0" || trainStatus == 0) {
       return "진입";
@@ -136,14 +158,7 @@ const Home = () => {
               {result.map((trainData) => (
                 // statnNm, trainNo, trainStatus, statnTnm, updnLine, directAt
                 <Train
-                  key={
-                    trainData.index +
-                    trainData.statNm +
-                    trainData.trainNo +
-                    trainData.trainSttus +
-                    trainData.statnTnm +
-                    trainData.updnLine
-                  }
+                  key={trainData.rowNum}
                   statnNm={trainData.statnNm}
                   trainNo={trainData.trainNo}
                   trainSttus={checkTrainStatus(trainData.trainSttus)}
