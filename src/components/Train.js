@@ -8,18 +8,6 @@ function Train({ statnNm, trainNo, trainSttus, statnTnm, updnLine, directAt }) {
     console.log(trainSttus);
   };
 
-  const checkTrainStatus = (trainStatus) => {
-    console.log(trainStatus);
-
-    if (trainStatus == "0" || trainStatus == 0) {
-      return "진입";
-    } else if (trainStatus == "1" || trainSttus == 1) {
-      return "도착";
-    } else {
-      return "출발";
-    }
-  };
-
   return (
     <TableRow>
       <TableCell component="th" scope="row">
