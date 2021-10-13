@@ -3,7 +3,15 @@ import { Table, TableRow, TableCell } from "@material-ui/core";
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Train({ statnNm, trainNo, trainSttus, statnTnm, updnLine, directAt }) {
+function Train({
+  statnNm,
+  trainNo,
+  trainSttus,
+  statnTnm,
+  updnLine,
+  directAt,
+  subwayNm,
+}) {
   const Test = () => {
     console.log(trainSttus);
   };
@@ -21,6 +29,7 @@ function Train({ statnNm, trainNo, trainSttus, statnTnm, updnLine, directAt }) {
               statnTnm,
               updnLine,
               directAt,
+              subwayNm,
             },
           }}
         >

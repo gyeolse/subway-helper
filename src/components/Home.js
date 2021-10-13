@@ -93,11 +93,11 @@ const Home = () => {
       .get(url)
       .then(function (res) {
         setresult(res.data.realtimePositionList);
+        console.log(res);
       })
       .catch(function (err) {
         console.log(err);
       });
-
     setisLineChecked(true);
   }
 
@@ -165,6 +165,7 @@ const Home = () => {
                   statnTnm={trainData.statnTnm}
                   updnLine={trainData.updnLine}
                   directAt={trainData.directAt}
+                  subwayNm={trainData.subwayNm}
                 />
               ))}
             </TableBody>
