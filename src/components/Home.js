@@ -1,10 +1,12 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { CONFIG_KEY } from "../config/Key";
 import Train from "./Train";
 import Button from "@material-ui/core/Button";
 import { useInView } from "react-intersection-observer";
+import useCurrentLocation from "../hooks/useCurrentPosition";
+import Location from "./Location";
 
 import {
   FormControl,
@@ -34,6 +36,14 @@ const Home = () => {
     { id: 9, value: "9" },
   ];
 
+  const geolocationOptions = {
+    enableHighAccuracy: true,
+    timeout: 1000 * 60 * 1, // 1 min (1000 ms * 60 sec * 1 minute = 60 000ms)
+    maximumAge: 1000 * 3600 * 24, // 24 hour
+  };
+
+  const { location: currentLocation, error: currentError } =
+    useCurrentLocation(geolocationOptions);
   const [result, setresult] = useState([]);
   const [line, setline] = useState(0);
   const [isLineChecked, setisLineChecked] = useState(false);
@@ -114,6 +124,7 @@ const Home = () => {
     <div className="App">
       <div>
         <h1>SUBWAY - TEST PAGE</h1>
+        <Location location={currentLocation} error={currentError} />
         <FormControl>
           <InputLabel id="demo-simple-select-label">호선</InputLabel>
           <Select
